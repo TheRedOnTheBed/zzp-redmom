@@ -4,7 +4,7 @@
  * @Author: zzp
  * @Date: 2020-04-24 02:29:57
  * @LastEditors: zzp
- * @LastEditTime: 2020-05-05 01:49:42
+ * @LastEditTime: 2020-09-18 20:59:23
  -->
 <!-- 注册视图 -->
 <template>
@@ -37,7 +37,7 @@ export default {
 <style scoped>
 @import "../../../public/css/login.css";
 #main {
-  background-image: url("../../../public/images/登录背景.png");
+  background-image: url("../../../public/images/loginbg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

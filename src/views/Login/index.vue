@@ -38,7 +38,7 @@ export default {
 <style scoped>
 @import "../../../public/css/login.css";
 #main {
-  background-image: url("../../../public/images/登录背景.png");
+  background-image: url("../../../public/images/loginbg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

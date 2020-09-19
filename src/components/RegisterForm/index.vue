@@ -4,7 +4,7 @@
  * @Author: zzp
  * @Date: 2020-04-24 02:10:39
  * @LastEditors: zzp
- * @LastEditTime: 2020-05-27 00:32:31
+ * @LastEditTime: 2020-09-18 23:39:34
  -->
 <!-- 注册框 -->
 <template>
@@ -108,9 +108,9 @@ export default {
       } else if (this.user.pwd !== '' && value !== this.user.pwd) {
         this.keep[2] = true
         callback(new Error('两次输入密码不一致!'))
-      } else if (this.user.pwd === '' && value !== '') {
+      } else if ((this.user.pwd === '' && value !== '') || (this.user.pwd === '' && value === '')) {
         this.keep[2] = true
-        callback(new Error('请输入密码!'))
+        callback(new Error('请输入密码'))
       }
       else {
         this.keep[2] = false
@@ -120,6 +120,7 @@ export default {
     return {
       isRegister: false,
       keep: [false, false, false],
+      focusing: [false, false, false],
       user: {
         name: '',
         pwd: '',
@@ -136,7 +137,7 @@ export default {
           { validator: validatePass2, trigger: 'blur' }
         ]
       },
-      focusing: [false, false, false],
+      // 输入框获得焦点时保持的样式
       focusClass: ['label-focus', 'spin-focus']
     }
   },

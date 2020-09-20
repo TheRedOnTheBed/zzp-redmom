@@ -4,7 +4,7 @@
  * @Author: zzp
  * @Date: 2020-09-19 16:09:22
  * @LastEditors: zzp
- * @LastEditTime: 2020-09-20 13:29:16
+ * @LastEditTime: 2020-09-20 22:05:11
 -->
 <!-- 新用户填写信息视图 -->
 <template>
@@ -36,9 +36,9 @@ export default {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 100vh;
-  -webkit-background-size: cover; /*兼容Webkit内核浏览器如Chrome和Safari*/
-  -o-background-size: cover; /*兼容Opera*/
+  /* min-height: 100vh; */
+  -webkit-background-size: cover;
+  -o-background-size: cover;
   background-attachment: fixed;
 }
 .title {

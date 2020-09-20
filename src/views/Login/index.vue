@@ -4,7 +4,7 @@
  * @Author: zzp
  * @Date: 2020-04-14 02:36:03
  * @LastEditors: zzp
- * @LastEditTime: 2020-05-27 00:51:29
+ * @LastEditTime: 2020-09-19 16:17:15
  -->
 <!-- 登录视图 -->
 <template>
@@ -36,12 +36,15 @@ export default {
 
 </script>
 <style scoped>
-@import "../../../public/css/login.css";
+@import "../../../public/css/base.css";
 #main {
   background-image: url("../../../public/images/loginbg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
+  -webkit-background-size: cover; /* 兼容Webkit内核浏览器如Chrome和Safari */
+  -o-background-size: cover; /* 兼容Opera */
+  background-attachment: fixed;
 }
 </style>

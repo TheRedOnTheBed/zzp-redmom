@@ -4,12 +4,14 @@
  * @Author: zzp
  * @Date: 2020-09-19 16:38:25
  * @LastEditors: zzp
- * @LastEditTime: 2020-09-21 01:04:25
+ * @LastEditTime: 2020-09-21 23:36:16
 -->
 <!-- 新用户注册使用填写信息框 -->
 <template>
   <div class="box">
-    <h5 style="text-align:center;margin-bottom:30px;color:red">花点时间填写真实信息，我们会让结果更合您的心意。</h5>
+    <h5 style="text-align:center;margin-bottom:30px;color:red">
+      花点时间填写真实信息，我们会让结果更合您的心意。
+    </h5>
     <el-form :model="user"
              :rules="rules"
              ref="user"
@@ -19,9 +21,11 @@
                     prop="sex">
         <el-radio-group v-model="user.sex">
           <el-radio label="男"><i class="fa fa-mars-stroke"
-               style="font-size:18px"></i>&nbsp; 男</el-radio>
+               style="font-size:18px"></i>&nbsp;
+            男</el-radio>
           <el-radio label="女"><i class="fa fa-mercury"
-               style="font-size:18px"></i>&nbsp; 女</el-radio>
+               style="font-size:18px"></i>&nbsp;
+            女</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="出生日期"
@@ -45,7 +49,8 @@
                      :value="item.value"></el-option>
         </el-select>
         <el-select v-model="user.city"
-                   placeholder="请选择市">
+                   placeholder="请选择市"
+                   style="margin-left:20px">
           <el-option v-for="item in city"
                      :key="item.value"
                      :label="item.label"
@@ -60,25 +65,17 @@
           <el-radio label="丧偶">丧偶</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="活动性质"
-                    prop="type">
-        <el-checkbox-group v-model="user.type">
-          <el-checkbox label="美食/餐厅线上活动"
-                       name="type"></el-checkbox>
-          <el-checkbox label="地推活动"
-                       name="type"></el-checkbox>
-          <el-checkbox label="线下主题活动"
-                       name="type"></el-checkbox>
-          <el-checkbox label="单纯品牌曝光"
-                       name="type"></el-checkbox>
-        </el-checkbox-group>
+      <el-form-item label="身高"
+                    prop="height">
+        <el-input v-model.number="user.height"
+                  style="width:240px"
+                  placeholder="单位：cm"></el-input>
       </el-form-item>
-      <el-form-item label="我是"
-                    prop="resource">
-        <el-radio-group v-model="user.resource">
-          <el-radio label="线上品牌商赞助"></el-radio>
-          <el-radio label="线下场地免费"></el-radio>
-        </el-radio-group>
+      <hr style="border:1px dashed #000; height:1px; margin-bottom:20px">
+      <el-form-item label="邮箱"
+                    prop="email">
+        <el-input v-model="user.email"
+                  style="width:300px"></el-input>
       </el-form-item>
       <el-form-item label="活动形式"
                     prop="desc">
@@ -92,27 +89,57 @@
       </el-form-item>
     </el-form>
   </div>
+
 </template>
 
 <script>
 export default {
   name: 'NewInfoFrom',
   data () {
+    var checkHeight = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('身高不能为空'))
+      }
+      else if (!Number.isInteger(value)) {
+        callback(new Error('请输入整数值'))
+      }
+      else {
+        if (value < 130 || value > 250) {
+          callback(new Error('必须在130cm-250cm之间'))
+        } else {
+          callback()
+        }
+      }
+    }
+    var checkEmail = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('邮箱不能为空'))
+      }
+      else {
+        var isMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if (!isMail.test(value)) {
+          callback(new Error('请输入正确的邮箱'))
+        } else {
+          callback()
+        }
+      }
+    }
     return {
       user: {
         sex: '',
         region: '',
         date: '',
         marital: '',
-        type: [],
+        height: '',
         resource: '',
         desc: '',
         provincial: '',
         city: '',
       },
-      provincial:[],
-      city:[],
+      provincial: [],
+      city: [],
       rules: {
+        height: [{ required: true, trigger: 'blur', validator: checkHeight }],
         region: [
           { required: true, message: '请选择常住地', trigger: 'change' },
         ],
@@ -124,18 +151,14 @@ export default {
             trigger: 'change',
           },
         ],
-        type: [
-          {
-            type: 'array',
-            required: true,
-            message: '请至少选择一个活动性质',
-            trigger: 'change',
-          },
-        ],
-        sex: [
-          { required: true, message: '请选择性别', trigger: 'change' },
-        ],
+        sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
         desc: [{ required: true, message: '请填写活动形式', trigger: 'blur' }],
+        marital: [
+          { required: true, message: '请选择婚姻状况', trigger: 'change' },
+        ],
+        email: [{
+          required: true, trigger: 'blur', validator: checkEmail
+        }]
       },
     }
   },
@@ -155,7 +178,6 @@ export default {
     },
   },
 }
-
 </script>
 <style scoped>
 .box {

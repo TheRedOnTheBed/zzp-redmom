@@ -4,7 +4,7 @@
  * @Author: zzp
  * @Date: 2020-04-14 01:51:07
  * @LastEditors: zzp
- * @LastEditTime: 2020-09-18 17:15:43
+ * @LastEditTime: 2020-09-25 11:27:37
  */
 const webpack = require('webpack')
 module.exports = {
@@ -13,16 +13,22 @@ module.exports = {
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
-        'windows.jQuery': 'jquery',
-      }),
-    ],
+        'windows.jQuery': 'jquery'
+      })
+    ]
   },
 
   devServer: {
     open: false,
     port: 8888,
+    proxy: {
+      '/api': {
+        target: 'http://101.200.232.216:3000',
+        changeOrigin: true
+      }
+    }
   },
 
-  assetsDir: 'static',
+  assetsDir: 'static'
   // lintOnSave: false
 }
